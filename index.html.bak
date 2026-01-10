@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title data-i18n="pageTitle">សិរីមង្គលអាពាហ៍ពិពាហ៍ | ជិន សុវណ្ណរតនៈ & គឹម ច័ន្ទដាហ្សូនីតា</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ================================================== 
+    Khmer Font Definitions - Change .ttf files here 
+    ==================================================
+    */
+    /* Main Heading Font (Muol/Heavy Style) */
+    @font-face {
+        font-family: 'HeadingKhmer';
+        src: url('font/KhmerOSmuolpali.ttf') format('truetype');
+        font-display: swap;
+    }
+    /* Secondary Display Font (Muol/Medium Style) */
+    @font-face {
+        font-family: 'DisplayKhmer';
+        src: url('font/KhmerOSmuolpali.ttf') format('truetype');
+        font-display: swap;
+    }
+    /* Body/Long Text Font (Bokor/Standard Style) */
+    @font-face {
+        font-family: 'BodyKhmer';
+        src: url('font/KhmerOSsiemreap.ttf') format('truetype');
+        font-display: swap;
+    }
+    /* Parent Name/Guest Name Font (A special style, using AKbalthom Seoul for contrast) */
+    @font-face {
+        font-family: 'English';
+        src: url('font/times.ttf') format('truetype');
+        font-display: swap;
+    }
+    /* Special English Font (Kugile Demo) */
+    @font-face {
+        font-family: 'EnglishSpecial';
+        src: url('font/Ancient\ Wedding\ Demo.ttf') format('truetype');
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'EnglishSpecial1';
+        src: url('font/Kugile_Demo.ttf') format('truetype');
+        font-display: swap;
+    }
+    /* Standard English Font (Crimson Roman) */
+    @font-face {
+        font-family: 'EnglishStandard';
+        src: url('font/Crimson-Roman.ttf') format('truetype');
+        font-display: swap;
+    }
+    /* Button Font (often the Heading font for readability) */
+    @font-face {
+        font-family: 'ButtonKhmer';
+        src: url('font/KhmerOSmuolpali.ttf') format('truetype');
+        font-display: swap;
+    }
+    </style>
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Prevent zoom in/out on the website -->
+    <script>
+        // Prevent double-tap zoom
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Prevent pinch zoom
+        document.addEventListener('wheel', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Prevent keyboard zoom shortcuts
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '0')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</head>
+<body>
+    <!-- Loading Screen - Desktop Version -->
+    <div id="loading-screen" class="loading-screen-desktop">
+        <p class="loading-text">Loading</p>
+        <p class="loading-text1">The Invitation</p>
+    </div>
+
+    <!-- Loading Screen - Mobile Version (Opening Doors) -->
+    <div id="loading-screen-mobile" class="loading-screen-mobile">
+        <div class="door-container">
+            <div class="relative w-1/2 h-full will-change-transform door left-door" style="background-image: url('images/1.webp'); background-repeat: no-repeat; background-size: cover; background-position: right center;">
+                <div class="pointer-events-none absolute inset-0 shadow-[inset_-20px_0_40px_rgba(0,0,0,0.35)]"></div>
+            </div>
+            <div class="relative w-1/2 h-full will-change-transform door right-door" style="background-image: url('images/2.webp'); background-repeat: no-repeat; background-size: cover; background-position: left center;">
+                <div class="pointer-events-none absolute inset-0 shadow-[inset_20px_0_40px_rgba(0,0,0,0.35)]"></div>
+            </div>
+        </div>
+        <!-- Rotating Circle Logo -->
+        <img src="images/3.png" alt="Logo" class="rotating-logo" />
+    </div>
+
+    <!-- PAGE 1: Background Video Desktop (1920x1080) -->
+    <video autoplay loop muted id="page1-bg-video-desktop" class="bg-video-desktop page1-bg" playsinline>
+        <source src="video/Page1-1920.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- PAGE 1: Background Video Mobile (1080x1080) -->
+    <video autoplay loop muted id="page1-bg-video-mobile" class="bg-video-mobile page1-bg" playsinline>
+        <source src="video/mobile-bg.webm" type="video/webm">
+        <source src="video/Page1-1080.mp4" type="video/mp4">
+    </video>
+
+    <!-- PAGE 2: Background Video Desktop (1920x1080) -->
+    <video autoplay loop muted id="page2-bg-video-desktop" class="bg-video-desktop page2-bg" playsinline>
+        <source src="video/1920x1080.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- PAGE 2: Background Video Mobile (1080x1080) -->
+    <video autoplay loop muted id="page2-bg-video-mobile" class="bg-video-mobile page2-bg" playsinline>
+        <source src="video/mobile-bg.webm" type="video/webm">
+        <source src="video/1080x1080.mp4" type="video/mp4">
+    </video>
+
+    <div id="transition-overlay">
+        <video id="transition-video" muted playsinline>
+            <source src="video/entrance_video.mp4" type="video/mp4">
+            
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div id="entrance-page" class="fade-in">
+    <div class="invitation-box entrance-override">
+        
+        <img src="images/monogram.png" alt="monogram" class="entrance-photo fade-in-item">
+        
+        <p class="សូមគោរពអញ្ជើញ">សូមគោរពអញ្ជើញ</p>
+
+    <p class="សិរីមង្គលអាពាហ៍ពិពាហ៍">សិរីមង្គលអាពាហ៍ពិពាហ៍</p>
+        <img src="images/top.png" alt="top" class="top fade-in-item">
+
+<div id="page1-guest-name" class="Guest-name personalized-name-locked fade-in-item">
+    Mr. Chin Sossreymony and Spouse
+</div>
+
+        <img src="images/bottom.png" alt="top" class="top fade-in-item">
+
+    
+        <button id="enter-button" class="decorative-button fade-in-item" aria-label="Open wedding invitation">
+            <img src="images/button.png" alt="Decorative Button Background" class="button-image">
+            <span class="button-text">បើកសំបុត្រអាពាហ៍ពិពាហ៍</span>
+        </button>
+      
+    </div>
+</div>
+    
+    <!-- Page 2 Background Overlay -->
+    <div id="page-2-bg"></div>
+    
+    <div id="page-2-main">
+        <audio id="bg-music" src="video/Music background.mp3" loop crossorigin="anonymous" preload="auto"></audio>
+
+<button id="music-toggle-button" aria-label="Toggle background music">
+    <i class="fas fa-volume-up"></i>
+</button>
+
+<button id="menu-toggle-button" aria-label="Toggle navigation menu">
+    <i class="fas fa-bars"></i>
+</button>
+
+<nav id="navigation-menu" class="navigation-menu">
+    <a href="#invitation-box-section" class="menu-item" data-i18n="menuInvitation">
+        <img src="images/Invitation detail.svg" alt="Invitation" class="menu-icon">
+    </a>
+    <a href="#agenda-section" class="menu-item" data-i18n="menuAgenda">
+        <img src="images/agenda.svg" alt="Agenda" class="menu-icon">
+    </a>
+    <a href="#countdown-section" class="menu-item" data-i18n="menuCountdown">
+        <img src="images/Countdown.svg" alt="Countdown" class="menu-icon">
+    </a>
+    <a href="#rsvp-section" class="menu-item" data-i18n="menuRSVP">
+        <img src="images/Love.svg" alt="RSVP" class="menu-icon">
+    </a>
+    <a href="#love-story-section" class="menu-item" data-i18n="menuLoveStory">
+        <img src="images/Love.svg" alt="Love Story" class="menu-icon">
+    </a>
+    <a href="#wedding-album" class="menu-item" data-i18n="menuGallery">
+        <img src="images/album.svg" alt="Gallery" class="menu-icon">
+    </a>
+    <a href="#wish-section" class="menu-item" data-i18n="menuWishes">
+        <img src="images/wish.svg" alt="Wishes" class="menu-icon">
+    </a>
+</nav>
+        <section id="invitation-box-section" class="section fade-in-item">
+            <div class="container invitation-container ">
+                
+                <div class="invitation-box main-invitation-box">
+                    <h2 class="សិរីមង្គលអាពាហ៍ពិពាហ៍2 large-title fade-in-item" data-i18n="mainCeremony">សិរីមង្គលអាពាហ៍ពិពាហ៍</h2>
+                    
+                    <div class="parents-row fade-in-item">
+                        <div class="parent-info left-aligned ">
+                            <p class="parent-line">
+                                <span class="parent-name-full" data-i18n="parentTitleFemale">លោកស្រី ជិន សុភ័ក្រនារី</span>
+                            </p>
+                        </div>
+                        <div class="parent-info right-aligned">
+                            <p class="parent-line">
+                                <span class="parent-name-full" data-i18n="parentTitle2">ឯកឧត្តម គឹម សាវឿន</span>
+                            </p>
+                            <p class="parent-line">
+                                <span class="parent-name-full" data-i18n="parentTitle3">លោកជំទាវ សំ​ សុផារី</span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="មានកិត្តិយសសូមគោរពអញ្ជើញ fade-in-item" data-i18n="honorInvite">មានកិត្តិយសសូមគោរពអញ្ជើញ</h3>
+                    
+                    <p class="long-text fade-in-item" data-i18n="invitationBody">
+                        សម្ដេច ទ្រង់ ឯកឧត្តម លោកជំទាវ ​លោកអ្នកឧកញ៉ា អ្នកឧកញ៉ា ឧកញ៉ា លោក លោកស្រី អ្នកនាងកញ្ញា និងប្រិយមិត្ត ចូលរួមជាអធិបតី និងជាភ្ញៀវកិត្តិយស ដើម្បីប្រសិទ្ធពរជ័យ សិរីសួស្ដីជ័យមង្គលក្នុងពិធីមង្គលអាពាហ៍ពិពាហ៍ កូនប្រុស កូនស្រីរបស់យើងខ្ញុំ
+                    </p>
+                    
+                   <div class="couple-row fade-in-item">
+                        <div class="couple-info left-center">
+                            <p class="couple-line">
+                                <span class="កូនប្រុសនាម" data-i18n="groomLabel">កូនប្រុសនាម</span>
+                                <span class="Groom-Name" data-i18n="groomName1">ជិន​ សុវណ្ណរតនៈ</span>
+                            </p>
+                        </div>
+                        <div class="logo-center">
+                        <img src="images/monogram.png" alt="Couple Monogram" class="couple-logo-image">
+                    </div>
+                        <div class="couple-info right-center">
+                            <p class="couple-line">
+                                <span class="កូនស្រីនាម" data-i18n="brideLabel">កូនស្រីនាម</span>
+                                <span class="Bride-Name" data-i18n="brideName1">ច័ន្ទដាហ្សូនីតា</span>
+                            </p>
+                        </div>
+            </div>
+                    
+                    <h5 class="ដែលប្រព្រឹត្តទៅនៅ fade-in-item" data-i18n="takingPlace">ដែលប្រព្រឹត្តទៅនៅ</h5>
+                    <p class="date fade-in-item" data-i18n="weddingDate">Wednesday - 28 February 2026 | ថ្ងៃសៅរ៍ - ២៨ កុម្ភៈ ២០២៦</p>
+                    <p class="location fade-in-item" data-i18n="venueName">ដឹព្រេមៀ សេនធ័រ សែនសុខ (អាគារ I) </p>
+                    <p class="time fade-in-item" data-i18n="startTime">ចាប់ពីម៉ោង ០៦:៣០​ ព្រឹក តទៅ​!</p>  
+                    
+
+
+                <div class="location-map-section fade-in-item">
+                    <h3 class="location-title" data-i18n="locationTitle">ទីតាំងកម្មវិធី</h3>
+                    <p class="scan-text" data-i18n="scanMap">ស្កេនទីនេះដើម្បីមើលទីតាំង</p>
+                    
+                    <img src="images/map.png" alt="QR Code to Location" class="qr-code-image">
+
+                    <a href="https://maps.app.goo.gl/sheuX155tUHgZxFEA" target="_blank" class="map-link-button fade-in-item">
+                        <img src="images/Button-Page2.png" alt="Map Link Button" class="map-button-image-inner">
+                        <span class="map-button-text" data-i18n="viewMap">មើលទីផែនទី</span>
+                        <img src="images/google-map.webp"  alt="Google Maps Logo" class="google-maps-logo">
+                        
+                    </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+<section id="agenda-section" class="section">
+        <div class="container agenda-container">
+            <!-- MORNING EVENT SECTION -->
+            <div class="agenda-timeline-box">
+                <div class="agenda-logo-container fade-in-item">
+                    <img src="images/stylekbach2.png" alt="Wedding Logo" class="agenda-logo-image">
+                </div>
+                <h2 class="agenda-title" data-i18n="agendaTitle">កម្មវិធីមង្គលអាពាហ៍ពិពាហ៍</h2>
+                <p class="agenda-date" data-i18n="agendaDateMorning">ព្រឹក រសៀល (អាគារ​ I)</p>
+                <img src="images/Sun.png" alt="Morning" class="agenda-symbol fade-in-item">
+                <p class="agenda-period-label fade-in-item" data-i18n="agendaPeriodMorning">Morning (Building I)</p>
+                
+                <div class="timeline-wrapper fade-in-item">
+                    
+                    <div class="timeline-item">
+                        <img src="images/DOT.svg" alt="Dot" class="timeline-dot-image">
+                        <div class="timeline-content"> 
+                            <div class="agenda-content-box">
+                                <p class="time-label"><img src="images/clock.png" alt="Clock" class="time-icon"> <span data-i18n="time6am">៦:០០ នាទីព្រឹក</span></p>
+                                <h4 class="ceremony-title" data-i18n="ceremonyProcession">ពិធីក្រុងពាលី</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <img src="images/DOT.svg" alt="Dot" class="timeline-dot-image">
+                        <div class="timeline-content">
+                            <div class="agenda-content-box">
+                                <p class="time-label"><img src="images/clock.png" alt="Clock" class="time-icon"> <span data-i18n="time7am">៧:០០ នាទីព្រឹក</span></p>
+                                <h4 class="ceremony-title" data-i18n="ceremonyBlessing">ពិធីហែជំនូន (កំណត់)</h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <img src="images/DOT.svg" alt="Dot" class="timeline-dot-image">
+                        <div class="timeline-content">
+                            <div class="agenda-content-box">
+                                <p class="time-label"><img src="images/clock.png" alt="Clock" class="time-icon"> <span data-i18n="time8am">៨:០០ នាទីព្រឹក</span></p>
+                                <h4 class="ceremony-title" data-i18n="ceremonyHairCut">ពីធីរៀបរាប់ផ្លែឈើ និងបំពាក់ចិញ្ជៀន</h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <img src="images/DOT.svg" alt="Dot" class="timeline-dot-image">
+                        <div class="timeline-content">
+                            <div class="agenda-content-box">
+                                <p class="time-label"><img src="images/clock.png" alt="Clock" class="time-icon"> <span data-i18n="time830am">៨:៣០ នាទីព្រឹក</span></p>
+                                <h4 class="ceremony-title" data-i18n="ceremonyAncestor">ពិធិសូត្រមន្តចម្រើនព្របរិត្ត</h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <img src="images/DOT.svg" alt="Dot" class="timeline-dot-image">
+                        <div class="timeline-content">
+                            <div class="agenda-content-box">
+                                <p class="time-label"><img src="images/clock.png" alt="Clock" class="time-icon"> <span data-i18n="time9am">៩:០០ នាទីព្រឹក</span></p>
+                                <h4 class="ceremony-title" data-i18n="ceremonySevenRotations">ពិធីកាត់សក់បង្កក់សិរី</h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <img src="images/DOT.svg" alt="Dot" class="timeline-dot-image">
+                        <div class="timeline-content">
+                            <div class="agenda-content-box">
+                                <p class="time-label"><img src="images/clock.png" alt="Clock" class="time-icon"> <span data-i18n="time1030am">១០:៣០ នាទីព្រឹក</span></p>
+                                <h4 class="ceremony-title" data-i18n="ceremonyStringTying">ពិធិសំពះពេលា បើកវាំងនន បាចផ្កាស្លា បង្វិលពពិល ពិធីគួចចំណងដៃព្រះថោងតោងស្បៃនាងនាគ</h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item last-item">
+                        <img src="images/DOT.svg" alt="Dot" class="timeline-dot-image">
+                        <div class="timeline-content">
+                            <div class="agenda-content-box">
+                                <p class="time-label"><img src="images/clock.png" alt="Clock" class="time-icon"> <span data-i18n="time12noon">១២:០០ ថ្ងៃត្រង់</span></p>
+                                <h4 class="ceremony-title" data-i18n="ceremonyLunch">អញ្ជើញភ្ញៀវពិសារអាហារថ្ងៃត្រង់</h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- EVENING EVENT SECTION -->
+            <div class="agenda-timeline-box"> 
+                <img src="images/Moon.png" alt="Evening" class="agenda-symbol1 fade-in-item">
+                <p class="agenda-period-label fade-in-item" data-i18n="agendaPeriodEvening">Evening (Building I)</p>
+                
+                <div class="timeline-wrapper">
+                    
+                    <div class="timeline-item">
+                        <img src="images/DOT.svg" alt="Dot" class="timeline-dot-image">
+                        <div class="timeline-content"> 
+                            <div class="agenda-content-box">
+                                <p class="time-label"><img src="images/clock.png" alt="Clock" class="time-icon"> <span data-i18n="time5pm">៧:០០ នាទីព្រឹក</span></p>
+                                <h4 class="ceremony-title" data-i18n="ceremonyGuestReception">អញ្ជើញភ្ញៀវពិសារអាហារពេលល្ងាច</h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logo Section Between Agenda and Countdown -->
+    <section id="logo-divider-section" class="section logo-divider">
+        <div class="container logo-divider-container">
+            <div class="logo-divider-box fade-in-item">
+                <img src="images/stylekbach.png" alt="Wedding Logo" class="divider-logo-image">
+            </div>
+        </div>
+    </section>
+
+    <section id="countdown-section" class="section">
+        <div class="container countdown-container">
+            <div class="countdown-box fade-in-item">
+                <img src="images/firework.webp" alt="Countdown Background" class="countdown-bg-image">
+                
+                <div class="countdown-content">
+
+                    <h2 class="countdown-title" data-i18n="countdownTitle">រាប់ថយក្រោយទៅថ្ងៃមង្គល</h2>
+                    
+                    <div id="countdown-timer" class="timer-grid">
+                        
+                        <div class="time-unit">
+                            <span id="days" class="number-gold">00</span>
+                            <span class="label-khmer" data-i18n="labelDays">ថ្ងៃ</span>
+                        </div>
+                        
+                        <div class="time-unit">
+                            <span id="hours" class="number-gold">00</span>
+                            <span class="label-khmer" data-i18n="labelHours">ម៉ោង</span>
+                        </div>
+                        
+                        <div class="time-unit">
+                            <span id="minutes" class="number-gold">00</span>
+                            <span class="label-khmer" data-i18n="labelMinutes">នាទី</span>
+                        </div>
+                        
+                        <div class="time-unit">
+                            <span id="seconds" class="number-gold">00</span>
+                            <span class="label-khmer" data-i18n="labelSeconds">វិនាទី</span>
+                        </div>
+                    </div>
+                    
+                    <div class="countdown-footer">
+                        <p class="wedding-date-text" data-i18n="weddingDateText">ថ្ងៃទី ២៨ ខែ ០១ ឆ្នាំ ២០២៦</p>
+
+                        <a href="https://calendar.google.com/calendar/r/eventedit?text=Jin%20Sovunnerath%20%26%20Chandajonita%20Wedding&dates=20260128T063000/20260128T180000&details=Wedding%20ceremony%20and%20reception&location=Deemiere%20Centre%20Sansokh%20(D%26E)" target="_blank" class="calendar-button-link">
+                            <div class="calendar-button-inner">
+                                <span class="calendar-button-text" data-i18n="calendarButtonText">កត់ទុកក្នុងប្រតិទិន</span> 
+                                <img src="images/calendar.svg" alt="Calendar Icon" class="calendar-icon">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp-section" class="section">
+        <div class="container rsvp-container">
+            <div class="rsvp-box fade-in-item">
+                <div class="rsvp-content">
+                    <h2 class="rsvp-title" data-i18n="rsvpTitle">សូមបញ្ជាក់ការចូលរួម</h2>
+                    
+                    <div class="rsvp-options">
+                        <button class="rsvp-btn rsvp-btn-accept" data-option="yes">
+                            <span class="rsvp-btn-text" data-i18n="rsvpYes">ចូលរួម</span>
+                        </button>
+                        <button class="rsvp-btn rsvp-btn-decline" data-option="no">
+                            <span class="rsvp-btn-text" data-i18n="rsvpNo">មិនបានចូលរួម</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="love-story-section" class="section fade-in-item">
+
+    <h2 class="love-story-title fade-in-item" data-i18n="loveStoryTitle" data-i18n-html="true">
+        Our <span>Love</span> Story
+    </h2>
+
+    <div class="love-story-wrapper fade-in-item">
+
+        <img src="images/groom.jpg" class="love-story-photo love-story-photo-groom fade-in-item" alt="Couple">
+
+        <p class="love-story-quote fade-in-item" data-i18n="loveQuoteOne" data-i18n-html="true">
+            I didn't fall in <br>
+            love with you;<br>
+            I walked into love with you,<br>
+            with my eyes wide open.<br>
+        </p>
+        
+
+    </div>
+
+</section>
+<section id="love-story-section-2" class="section fade-in-item">
+
+    <div class="love-story-wrapper reverse fade-in-item">
+
+        <p class="love-story-quote1 fade-in-item" data-i18n="loveQuoteTwo" data-i18n-html="true">
+            My favorite<br>
+            place in the<br>
+            world is wherever <br>
+            you happen<br>
+            to be standing.<br>
+        </p>
+
+        <img src="images/bride.jpg" class="love-story-photo love-story-photo-bride fade-in-item" alt="Couple">
+        
+    </div>
+
+</section>
+<!-- ================================
+     WEDDING PHOTO SECTIONS (5 TOTAL)
+==================================== -->
+
+<section class="wedding-section fade-in-item">
+    <div class="wedding-card">
+        <img src="images/bride.jpg" class="wedding-photo" alt="">
+        <div class="wedding-text center">
+            <p data-i18n="weddingQuoteOne" data-i18n-html="true">With you, I’d dance, in the storm,<br>in my best dress – fearless</p>
+            <span class="credit" data-i18n="creditBride">The Bride</span>
+        </div>
+    </div>
+</section>
+
+<section class="wedding-section fade-in-item">
+    <div class="wedding-card">
+        <img src="images/bride.jpg" class="wedding-photo" alt="">
+        <div class="wedding-text bottom-left">
+            <p data-i18n="weddingQuoteTwo">With you in my sight, The future is bright</p>
+            <span class="credit" data-i18n="creditGroom">The Groom</span>
+        </div>
+    </div>
+</section>
+
+<section class="wedding-section fade-in-item">
+    <div class="wedding-card">
+        <img src="images/bride.jpg" class="wedding-photo" alt="">
+        <div class="wedding-text top-left">
+            <p data-i18n="weddingQuoteThree" data-i18n-html="true">I would never fall in love again<br>until I found her</p>
+            <span class="credit" data-i18n="creditGroom">The Groom</span>
+        </div>
+    </div>
+</section>
+
+<section class="wedding-section fade-in-item">
+    <div class="wedding-card">
+        <img src="images/bride.jpg" class="wedding-photo" alt="">
+        <div class="wedding-text center">
+            <p data-i18n="weddingQuoteFour" data-i18n-html="true">And on a Wednesday in a café,<br>I watched it begin again</p>
+            <span class="credit" data-i18n="creditBride">The Bride</span>
+        </div>
+    </div>
+</section>
+
+<section class="wedding-section fade-in-item">
+    <div class="wedding-card">
+        <img src="images/bride.jpg" class="wedding-photo" alt="">
+        <div class="wedding-text bottom-center">
+            <p data-i18n="weddingQuoteFive" data-i18n-html="true">Here’s to the game of love<br>Where every shot with you is a win</p>
+            <span class="credit" data-i18n="creditLovebirds">The Lovebirds</span>
+        </div>
+        <span class="swipe" data-i18n="swipeHint">Swipe Here!</span>
+    </div>
+</section>
+<section id="wedding-album" class="fade-in-item">
+
+    <h2 class="album-title fade-in-item" data-i18n="albumTitle">អាល់បុយកូនស្វាមីភរិយា</h2>
+
+    <div class="album-wrapper">
+
+        <!-- 1. Big Landscape Photo -->
+        <img src="images/bride.jpg" class="album-photo big fade-in-item" alt="">
+
+        <!-- 2. Two Medium Photos -->
+        <div class="album-row fade-in-item">
+            <img src="images/bride.jpg" class="album-photo medium hover" alt="">
+            <img src="images/bride.jpg" class="album-photo medium" alt="">
+        </div>
+
+        <!-- 3. Full Width Portrait -->
+        <img src="images/bride.jpg" class="album-photo big fade-in-item" alt="">
+
+        <!-- 4. Two Portrait Photos -->
+        <div class="album-row fade-in-item">
+            <img src="images/bride.jpg" class="album-photo medium" alt="">
+            <img src="images/bride.jpg" class="album-photo medium" alt="">
+        </div>
+
+    </div>
+
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox">
+    <span id="lightboxClose" class="lightbox-close">&times;</span>
+    <img id="lightboxImage" class="lightbox-image" src="">
+</div>
+<section class="wish-section" id="wish-section">
+    
+    <div class="wish-container fade-in-item">
+        <h2 class="wish-title" data-i18n="wishTitle">សូមជូនពរដល់គូស្វាមី</h2> 
+        
+        <form id="wishForm" class="wish-form">
+            <div class="input-group">
+                <label for="guestName" data-i18n="labelGuestName">ឈ្មោះរបស់អ្នក</label>
+                <input type="text" id="guestName" name="guestName" required placeholder="Your Name" readonly data-i18n-placeholder="placeholderGuestName">
+            </div>
+
+            <div class="input-group">
+                <label for="wishMessage" data-i18n="labelWishMessage">សារជូនពរ</label>
+                <textarea id="wishMessage" name="wishMessage" required placeholder="សរសេរសារ..." data-i18n-placeholder="placeholderWishMessage"></textarea>
+            </div>
+            
+            <button type="submit" id="submitBtn" class="submit-button image-button">
+                <span class="button-label" data-i18n="submitWish">ផ្ញើសារជូនពរ</span>
+            </button>
+        </form>
+        <p id="submissionStatus" class="status-message"></p>
+    </div>
+
+    <div id="wishesDisplay" class="wish-container fade-in-item" style="margin-top: 30px;">
+        <h3 class="wishes-subtitle" data-i18n="wishesSubtitle">សារជូនពរ</h3>
+        <div id="wishesList">
+            <p style="color: #f1d577;">កំពុងទាញយកសារ...</p>
+        </div>
+        <button id="seeMoreBtn" class="golden-button" style="display:none;" data-i18n="seeMore">See more wish</button>
+    </div>
+
+    <!-- APPRECIATION MESSAGE SECTION -->
+    <div class="appreciation-container fade-in-item" style="margin-top: 50px;">
+        <div class="appreciation-box">
+            <h2 class="appreciation-title" data-i18n="appreciationTitle">Thank You & Our Sincere Apology</h2>
+            
+            <div class="appreciation-icon">
+                <img src="images/hand.svg" class="flower-icon">
+            </div>
+            
+            <p class="appreciation-text" data-i18n="appreciationMessage">
+                We, the parents of the bride and groom, would like to express our deepest gratitude and heartfelt appreciation for the honorable presence of Samdech, His Excellency, Lok Chumteav, Lok Neak Oknha, Neak Oknha, ladies and gentlemen, who have graciously attended and honored the upcoming wedding ceremony of our beloved son and daughter. We sincerely apologize for not being able to deliver this invitation to you in person. With our highest respects.
+            </p>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="footer-section">
+            <p class="footer-text">Made with <span class="heart-icon">❤️</span> by Mr. Neng Chhunty</p>
+            <div class="social-icons">
+                <a href="https://t.me/chhuntyyy" target="_blank" class="social-link" aria-label="Telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+            </div>
+            <p class="footer-copyright">© 2026 Rotanak&Jonita Wedding · All Rights Reserved</p>
+        </div>
+
+        <!-- Blank Viewpoint at Bottom -->
+        <div class="blank-viewpoint"></div>
+    </div>
+
+</section>
+
+        
+    </div>
+    <script src="script.js"></script>
+    
+</body>
+</html>
