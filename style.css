@@ -3204,7 +3204,7 @@ section,
 
     .wish-card {
         width: 100%;
-        max-width: 365px;
+        max-width: 342px;
         margin-left: 10px !important;
         padding: 12px 15px;
         border-radius: 20px;
@@ -3952,5 +3952,6 @@ section,
     opacity: 0;
     animation: entranceFadeIn 2s ease-out 0.2s forwards;
 }
+
 
 
