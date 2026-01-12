@@ -805,11 +805,11 @@ updateWeddingCountdown();
     // =========================================================
 
     function setupCalendarLink() {
-        const title = "ពិធីមង្គលអាពាហ៍ពិពាហ៍ | ឃុន ខាយស៊ីន & ពេជ្រ ម៉ានីកា";
+        const title = "ពិធីមង្គលអាពាហ៍ពិពាហ៍ | ជិន សុវណ្ណរតនៈ & គឹម ច័ន្ទដាហ្សូនីតា";
         const description = "សូមគោរពអញ្ជើញលោក លោកស្រី ចូលរួមពិធីមង្គលអាពាហ៍ពិពាហ៍កូនប្រុស កូនស្រីរបស់យើងខ្ញុំ។";
-        const location = "ដឹ ព្រេមៀ សេនធ័រ សែនសុខ (អាគារ D&E)";
-        const startDateTime = "20260328T063000";
-        const endDateTime = "20260328T143000";
+        const location = "ដឹ ព្រេមៀ សេនធ័រ សែនសុខ (អាគារ I)";
+        const startDateTime = "20260228T063000";
+        const endDateTime = "20260228T233000";
         
         const googleCalendarLink = `https://calendar.google.com/calendar/r/eventedit?text=${encodeURIComponent(title)}&dates=${startDateTime}/${endDateTime}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
 
