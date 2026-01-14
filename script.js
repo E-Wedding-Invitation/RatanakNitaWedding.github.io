@@ -85,7 +85,7 @@ const translations = {
     labelHours: { km: 'ម៉ោង', en: 'Hours' },
     labelMinutes: { km: 'នាទី', en: 'Minutes' },
     labelSeconds: { km: 'វិនាទី', en: 'Seconds' },
-    weddingDateText: { km: 'ថ្ងៃទី ២៨ ខែ កុម្ភៈ ឆ្នាំ ២០២៦', en: '28 February 2026' },
+    weddingDateText: { km: 'ថ្ងៃទី ២៨ ខែកុម្ភៈ ឆ្នាំ ២០២៦', en: '28 February 2026' },
     calendarButtonText: { km: 'កត់ទុកក្នុងប្រតិទិន', en: 'Save to calendar' },
     albumTitle: { km: 'វិចិត្រសាល', en: 'Gallery' },  //////
     wishTitle: { km: 'សារជូនពរដល់គូស្វាមីភរិយាថ្មី', en: 'Write a wish to a new married couple' },
@@ -1402,3 +1402,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
