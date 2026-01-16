@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================
     const wishesList = document.getElementById('wishesList');
     const seeMoreBtn = document.getElementById('seeMoreBtn');
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzanftHeABauVXJWdlCEWHkmP9enWqxheOrilCvU5Nv9EloYnMBkBvS_NppbHYfHQMt/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw1AQt1zdJH92Xj7exngfQKP2T_epfxu0u1N0nwHLblpy15Y3J0Eg39-ral5Z08JHOk/exec';
 
     const savedLanguage = localStorage.getItem('preferredLanguage') || 'km';
     applyLanguage(savedLanguage);
