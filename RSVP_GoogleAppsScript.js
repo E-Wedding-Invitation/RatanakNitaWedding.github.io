@@ -31,40 +31,68 @@ function handleRSVP(data) {
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   const sheet = ss.getSheetByName(SHEET_NAME);
   
-  const guestName = data.guestName;
-  const response = data.response; // "ចូលរួម" or "មិនបានចូលរួម"
+  const guestName = data.guestName;       // Display name (e.g., Khmer name or full name)
+  const guestKey = data.guestKey || '';   // URL key (e.g., from ?to= parameter)
+  const response = data.response;          // "ចូលរួម" or "មិនបានចូលរួម"
   const date = data.date;
   
-  // Find the row with matching guest name in Column C (Khmer name)
+  // Find the row with matching guest name based on columns B, C, D
   const dataRange = sheet.getDataRange();
   const values = dataRange.getValues();
   
   let rowFound = false;
+  let foundRowIndex = -1;
+  
+  // Normalize names for comparison
+  const normalizedGuestName = String(guestName).trim().toLowerCase();
+  const normalizedGuestKey = String(guestKey).trim().toLowerCase().replace(/[\+_\s]/g, ' ');
   
   // Start from row 2 (skip header row)
   for (let i = 1; i < values.length; i++) {
     const row = values[i];
-    const khmerName = row[2]; // Column C (index 2) - Khmer name
-    const englishName = row[1]; // Column B (index 1) - English name for URL
+    const colB = String(row[1]).trim().toLowerCase();  // Column B - URL/Link name
+    const colC = String(row[2]).trim().toLowerCase();  // Column C - Display name
+    const colD = String(row[3]).trim().toLowerCase();  // Column D - Additional info
     
-    // Check if guest name matches either Khmer or English name
-    if (khmerName === guestName || englishName === guestName || 
-        khmerName.includes(guestName) || guestName.includes(khmerName)) {
-      
-      // Write RSVP response to Column E (index 5, which is E since A=1, B=2, C=3, D=4, E=5)
-      sheet.getRange(i + 1, 5).setValue(response); // Column E
-      sheet.getRange(i + 1, 6).setValue(date);      // Column F - timestamp
-      
+    // Priority 1: Exact match Column B (URL/Link key) - most reliable
+    if (normalizedGuestKey && colB === normalizedGuestKey.replace(/[\+_\s]/g, ' ')) {
+      foundRowIndex = i;
       rowFound = true;
-      Logger.log('RSVP recorded for: ' + guestName + ' in row ' + (i + 1));
+      Logger.log('RSVP: Matched by Column B (URL Link) - Row ' + (i + 1));
+      break;
+    }
+    
+    // Priority 2: Exact match Column C (Khmer display name)
+    if (normalizedGuestName && colC === normalizedGuestName) {
+      foundRowIndex = i;
+      rowFound = true;
+      Logger.log('RSVP: Matched by Column C (Khmer Name) - Row ' + (i + 1));
+      break;
+    }
+    
+    // Priority 3: Partial match in Column B, C, or D
+    if ((colB.includes(normalizedGuestName) && normalizedGuestName.length > 2) ||
+        (colC.includes(normalizedGuestName) && normalizedGuestName.length > 2) ||
+        (colD.includes(normalizedGuestName) && normalizedGuestName.length > 2) ||
+        (normalizedGuestName.includes(colB) && colB.length > 2) ||
+        (normalizedGuestName.includes(colC) && colC.length > 2) ||
+        (normalizedGuestName.includes(colD) && colD.length > 2)) {
+      foundRowIndex = i;
+      rowFound = true;
+      Logger.log('RSVP: Partial match found - Row ' + (i + 1) + ' (ColB: ' + colB + ', ColC: ' + colC + ')');
       break;
     }
   }
   
-  // If guest not found in existing rows, add new row at the end
-  if (!rowFound) {
-    Logger.log('Guest not found in list, adding new row: ' + guestName);
-    sheet.appendRow(['', '', guestName, '', response, date]);
+  // If guest found, update their RSVP response
+  if (rowFound && foundRowIndex >= 0) {
+    sheet.getRange(foundRowIndex + 1, 5).setValue(response); // Column E - RSVP Response
+    sheet.getRange(foundRowIndex + 1, 6).setValue(date);     // Column F - timestamp
+    Logger.log('RSVP recorded for: ' + guestName + ' in row ' + (foundRowIndex + 1));
+  } else {
+    // If guest not found, add new row at the end
+    Logger.log('Guest not found in existing list, adding new row: ' + guestName + ' (Key: ' + guestKey + ')');
+    sheet.appendRow(['', guestKey, guestName, '', response, date]);
   }
   
   return ContentService.createTextOutput(JSON.stringify({

@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================
     const wishesList = document.getElementById('wishesList');
     const seeMoreBtn = document.getElementById('seeMoreBtn');
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDzcd9yZPHjWj8u_2hNwm4tJDnyvGkX1Bik-jSb3OBx26Q_WkxMACDWjXJLvtdrbZu/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzanftHeABauVXJWdlCEWHkmP9enWqxheOrilCvU5Nv9EloYnMBkBvS_NppbHYfHQMt/exec';
 
     const savedLanguage = localStorage.getItem('preferredLanguage') || 'km';
     applyLanguage(savedLanguage);
@@ -1329,38 +1329,54 @@ document.addEventListener('DOMContentLoaded', () => {
 // =========================================================
 document.addEventListener('DOMContentLoaded', () => {
     const rsvpButtons = document.querySelectorAll('.rsvp-btn');
-    const RSVP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw7i5YbcJW2KBch9ng0iPPZnnDvcfqBmBJJPpbEo81FWBGzfu-ph_hOApXMfZPoIcxg/exec'
+    const RSVP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzanftHeABauVXJWdlCEWHkmP9enWqxheOrilCvU5Nv9EloYnMBkBvS_NppbHYfHQMt/exec'
     
-    // Get guest name from URL parameter or wish form
-    function getGuestName() {
+    // Get guest info (key and display name) from URL parameter or wish form
+    async function getGuestInfo() {
         // First, try to get from URL parameter
         const urlParams = new URLSearchParams(window.location.search);
-        const guestKey = urlParams.get('to');
+        const guestKey = urlParams.get('to'); // e.g., "john_doe" from ?to=john_doe
+        
+        let guestDisplayName = 'Unknown Guest';
         
         if (guestKey) {
-            // Return the guest key from URL
-            return guestKey.replace(/[\+_]/g, ' ');
+            try {
+                const guestNameMap = await loadGuestNamesFromSheet();
+                // Get the display name from the map, fallback to URL key
+                guestDisplayName = guestNameMap[guestKey] || guestKey.replace(/[\+_]/g, ' ');
+            } catch (error) {
+                // Fallback if sheet loading fails
+                guestDisplayName = guestKey.replace(/[\+_]/g, ' ');
+            }
+            
+            return {
+                key: guestKey,        // URL link key (Column B)
+                name: guestDisplayName // Display name (Column C - Khmer name)
+            };
         }
         
         // Fallback: try to get from wish form input
         const formInput = document.getElementById('guestName');
         if (formInput && formInput.value) {
-            return formInput.value;
+            guestDisplayName = formInput.value;
+            return {
+                key: '',
+                name: guestDisplayName
+            };
         }
         
-        // Last resort: return 'Unknown Guest'
-        return 'Unknown Guest';
+        // Last resort
+        return {
+            key: '',
+            name: 'Unknown Guest'
+        };
     }
-    
-    // Don't load saved RSVP - always start unselected
-    // Remove any saved response from localStorage to force fresh selection
-    // localStorage.removeItem('rsvpResponse');
     
     // Handle RSVP button clicks
     rsvpButtons.forEach(button => {
-        button.addEventListener('click', () => {
+        button.addEventListener('click', async () => {
             const option = button.getAttribute('data-option');
-            const guestName = getGuestName();
+            const guestInfo = await getGuestInfo();
             const response = option === 'yes' ? 'ចូលរួម' : 'មិនបានចូលរួម';
             const date = new Date().toLocaleString('km-KH');
             
@@ -1373,10 +1389,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Save response to localStorage
             localStorage.setItem('rsvpResponse', option);
             
-            // Send RSVP to Google Sheets
+            // Send RSVP to Google Sheets with both key and display name
             const rsvpData = {
                 action: 'rsvp',
-                guestName: guestName,
+                guestKey: guestInfo.key,    // URL link key for Column B matching (priority)
+                guestName: guestInfo.name,  // Display name for Column C matching (fallback)
                 response: response,
                 date: date
             };
